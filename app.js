@@ -24,13 +24,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(function (req, res, next) {
   console.log(`${req.method} request for '${req.url}' - ${JSON.stringify(req.body)}`);
   next();
-})
+});
 
 app.use(express.static("./public"));
 
 app.use(cors());
 
 app.get("/dictionary-api", function (req, res) {
+  res.json(skierTerms);
+});
+
+app.post("/dictionary-api", function (req, res) {
+  skierTerms.push(req.body);
   res.json(skierTerms);
 });
 
