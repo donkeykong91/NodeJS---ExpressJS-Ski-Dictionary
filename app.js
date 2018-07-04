@@ -1,4 +1,6 @@
 var express = require("express");
+var cors = require("cors");
+var bodyParser = require("body-parser");
 var app = express();
 
 var skierTerms = [
@@ -16,12 +18,17 @@ var skierTerms = [
     }
 ];
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(function (req, res, next) {
   console.log(`${req.method} request for '${req.url}'`);
   next();
 })
 
 app.use(express.static("./public"));
+
+app.use(cors());
 
 app.get("/dictionary-api", function (req, res) {
   res.json(skierTerms);
