@@ -39,6 +39,13 @@ app.post("/dictionary-api", function (req, res) {
   res.json(skierTerms);
 });
 
+app.delete("/dictionary-api/:term", function  (req, res) {
+  skierTerms = skierTerms.filter(function  (definition) {
+    return definition.term.toLowerCase() !== req.params.term.toLowerCase();
+  });
+  res.json(skierTerms);
+});
+
 app.listen(3000);
 
 console.log("Express app running on port 3000");
